@@ -1,6 +1,6 @@
 Original game http://en.wikipedia.org/wiki/Tic-tac-toe
 
-`deep-tac-toe` is simple multiplayer game written in CoffeeScript on Python
+`deep-tac-toe` is simple multiplayer game written in Python
 using Flask, gevent and socket.io
 
 Main goal is to play tictactoe while playing tictactoe.
