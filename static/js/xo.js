@@ -384,6 +384,16 @@ Game.prototype.drawFieldLine = function(x, y, w, h, coords, attr){
     var x2 = x + w / 2 / this.cells_x + w * coords[2] / this.cells_x;
     var y2 = y + h / 2 / this.cells_y + h * coords[3] / this.cells_y;
 
+    if (x1 != x2){
+        x1 -= w / this.cells_x / 4
+        x2 += w / this.cells_x / 4
+    }
+
+    if (y1 != y2){
+        y1 -= h / this.cells_y / 4
+        y2 += h / this.cells_y / 4
+    }
+
     if (!attr) attr= {};
     attr["stroke"] = "red";
     attr["stroke-width"] = 2 * (attr["stroke-width"] || 1);
