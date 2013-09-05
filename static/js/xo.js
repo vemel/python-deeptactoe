@@ -116,7 +116,7 @@ Game.prototype.checkPossible = function(player, prev_player){
         free_turn = true;
     }
 
-    if (!free_turn && this.isFieldFull(this.small_fields[force_x][force_y])){
+    if (!free_turn && this.isFieldFull(this.small_fields[force_y][force_x])){
         free_turn = true;
     }
 
