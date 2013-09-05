@@ -31,8 +31,8 @@ class GameRoom(object):
 
         self.players.append(player)
 
-        for team, team_player in self.player_teams.items():
-            if team_player is None:
+        for team in self.teams:
+            if self.player_teams[team] is None:
                 player.set_team(team)
 
         self.player_teams[player.get_team()] = player
