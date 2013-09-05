@@ -34,6 +34,7 @@ class GameRoom(object):
         for team in self.teams:
             if self.player_teams[team] is None:
                 player.set_team(team)
+                break
 
         self.player_teams[player.get_team()] = player
         if self.game:
