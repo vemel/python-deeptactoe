@@ -27,7 +27,7 @@ To install game:
 
 1. Download project
 2. pip install -r requirements.txt
-3. Run `python application.coffee 8082`
+3. Run `python run.py 8082`
 4. Open http://localhost:8082 page in you browser
 
 Configure:
