@@ -107,7 +107,7 @@ class GameNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         room.game.turn(
             player, (coords["x"], coords["y"]), (coords["x1"], coords["y1"]))
         self.emit_to_room_not_me(
-            room.name, 'gameStateChanged', room.game.get_data())
+            room.name, 'gameStateChanged', room.game.get_data_turn())
 
     def recv_connect(self):
         pass

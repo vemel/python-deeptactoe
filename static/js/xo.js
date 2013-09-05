@@ -276,7 +276,6 @@ Game.prototype.drawCell = function(x, y, x1, y1){
     if (this.lastTurn){
         if (this.lastTurn[1][0] == x && this.lastTurn[1][1] == y && this.lastTurn[1][2] == x1 && this.lastTurn[1][3] == y1){
             var player_team = this.lastTurn[0];
-            console.log(player_team);
             this.drawHighlight(x, y, x1, y1, this.players_color[player_team]);
         }
     }
@@ -474,7 +473,6 @@ var start_game_network = function(room_name){
     });
 
     socket.on('gameStarted', function(data) {
-        console.log(data)
         game.curr_player = data.team;
 
         show_message("You are playing for " + game.curr_player);
@@ -496,7 +494,6 @@ var start_game_network = function(room_name){
 
     socket.on('gameStateChanged', function(data) {
         var last_turn = data.last_turn;
-        console.log(data)
         if (data.last_turn_player != game.curr_player)
             game.makeTurn(last_turn[0], last_turn[1], last_turn[2], last_turn[3], false);
         game.draw();

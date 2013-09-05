@@ -18,7 +18,6 @@ class GameRoom(object):
     def is_full(self):
         'True is all game players are here.'
         for player in self.get_players():
-            print self.name, player, player is not None and player.is_left()
             if player is None or player.is_left():
                 return False
         return True
