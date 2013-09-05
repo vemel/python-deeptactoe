@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+
+
+class Player(object):
+    def __init__(self):
+        self.turns = []
+        self.force_turn = None
+        self.team = 'spectator'
+        self.left = False
+
+    def set_team(self, team):
+        self.team = team
+
+    def get_team(self):
+        return self.team
+
+    def set_turn(self, coords, small_coords):
+        self.turns.append((coords, small_coords))
+
+    def set_force_turn(self, coords):
+        'Set coords for next turn, check if last turn was in that cell'
+        last_turn = self.get_last_turn()
+        if last_turn and last_turn[0] == coords:
+            self.force_turn = None
+            return
+
+        self.force_turn = coords
+
+    def get_force_turn(self):
+        return self.force_turn
+
+    def get_last_turn(self):
+        if not self.turns:
+            return None
+        return self.turns[-1]
+
+    def is_left(self):
+        return self.left
+
+    def leave(self):
+        self.left = True
+
+    def rejoin(self):
+        self.left = False
+
+    def __bool__(self):
+        return not self.is_left()

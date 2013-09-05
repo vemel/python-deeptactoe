@@ -1,0 +1,28 @@
+body {
+    /*text-align: center;*/
+    padding: 50px;
+}
+
+#game_cont {
+    /*margin: 20px auto;*/
+    width: 500px;
+    height:500px;
+    border: 1px solid gray;
+}
+
+#message_cont {
+    /*margin: 20px auto;*/
+    width: 500px;
+    height:30px;
+    overflow: hidden;
+    text-align: center;
+    margin-top:20px;
+}
+
+#message_cont .message {
+    position:absolute;
+    text-align: center;
+    margin: 0px auto;
+    font-size:150%;
+    color:green;
+}

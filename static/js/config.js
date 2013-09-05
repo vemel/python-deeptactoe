@@ -1,0 +1,1 @@
+var appConfig = {"httpPort":8081,"httpHost":"localhost","test":true};
