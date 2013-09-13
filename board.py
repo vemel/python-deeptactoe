@@ -1,5 +1,17 @@
 # -*- coding: utf-8 -*-
-from collections import Counter
+
+
+class Counter(object):
+    def __init__(self, iterable):
+        self.d = {}
+        for i in iterable:
+            if i not in self.d:
+                self.d[i] = 0
+        self.d[i] += 1
+
+    def items(self):
+        return self.d.items()
+
 
 # TODO: all public funcs shold accept tuple(x, y) except x, y
 class Board(object):
