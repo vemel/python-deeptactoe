@@ -389,6 +389,15 @@ Game.prototype.drawFieldLine = function(x, y, w, h, coords, attr){
         x2 += w / this.cells_x / 4
     }
 
+    if (y2 < y1){
+        var temp = y1;
+        y1 = y2;
+        y2 = temp;
+        temp = x1;
+        x1 = x2;
+        x2 = temp;
+    }
+
     if (y1 != y2){
         y1 -= h / this.cells_y / 4
         y2 += h / this.cells_y / 4
