@@ -1,9 +1,12 @@
 - extends "base.jade"
 
-- block content
+- block page_content
   h2 Deep-tac-toe
   #game_cont
   #message_cont
+
+- block scripts
+  {{ super() }}
   script(src='/static/js/xo.js')
   script.
     start_game_network('{{ room_name }}');

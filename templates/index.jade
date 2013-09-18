@@ -1,7 +1,7 @@
 - extends "base.jade"
 
-- block content
-  .hero-unit
+- block page_content
+  .jumbotron
     h1 Deep-tac-toe game
     p Yo, dawg!
     p.
@@ -9,19 +9,19 @@
       tictactoe so you can play while you play
   
   .row
-    .span4
+    .col-md-4
       h2 Play with your friend!
       p Go find one if you need!
       p
         a.btn(href='/hotseat') Hotseat game
 
-    .span4
+    .col-md-4
       h2 Play online!
       p Play over large network called Internets.
       p
         a.btn(href='/network') Network game
 
-    .span4
+    .col-md-4
       h2 Fork me on GitHub
       p You'd like that.
       p

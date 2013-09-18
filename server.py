@@ -24,7 +24,7 @@ handler.setFormatter(logging.Formatter(
 ))
 
 app.logger.addHandler(handler)
-app.logger.error('test')
+app.logger.error(sorted(app.jinja_env.globals.keys()))
 
 
 import namespace
