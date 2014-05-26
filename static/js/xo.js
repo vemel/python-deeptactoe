@@ -498,7 +498,7 @@ var start_game_network = function(room_name){
         // show_message('Game started');
         game.init();
 
-        game.player = data.active_player;
+        game.player = data.player;
         game.curr_player = data.team;
         game.field = data.board;
         game.small_fields = data.small_boards;
@@ -553,4 +553,78 @@ var start_game_hotseat = function(){
     game.curr_player = game.player;
     announce_turn();
     game.draw();
+};
+
+
+var start_game_ai = function(room_name){
+    var WEB_SOCKET_SWF_LOCATION = '/static/js/WebSocketMain.swf';
+    var socket = io.connect('/game');
+
+    // show_message('Connecting to server...');
+    socket.on('connect', function() {
+        Game.prototype.sendTurn = function(x, y, x1, y1){
+            show_message('Now is your opponent\'s turn');
+            return socket.emit('turn', {
+              x: x,
+              y: y,
+              x1: x1,
+              y1: y1,
+            });
+        };
+
+        socket.emit('join', room_name);
+        show_message('Trying to create new game...');
+    });
+
+    socket.on('waitingForOpponent', function() {
+        show_message('Waiting for opponent...');
+    });
+
+    socket.on('gameStarted', function(data) {
+        game.curr_player = data.team;
+
+        show_message("You are playing for " + game.curr_player);
+        // show_message('Game started');
+        game.init();
+        console.log(data)
+
+        game.player = data.player;
+        game.curr_player = data.team;
+        game.field = data.board;
+        game.small_fields = data.small_boards;
+        game.field = data.board;
+        game.won = data.board_win;
+        game.field_lines = data.small_boards_lines;
+        room_name = data.room_name;
+
+        game.checkPossible(game.player, game.getNextPlayer());
+        game.draw();
+    });
+
+    socket.on('gameStateChanged', function(data) {
+        var last_turn = data.last_turn;
+        if (data.last_turn_player != game.curr_player)
+            game.makeTurn(last_turn[0], last_turn[1], last_turn[2], last_turn[3], false);
+        game.draw();
+
+        var turn_message = 'turn';
+        var message = 'Now is your turn';
+        if (game.curr_player !== game.player){
+            message = 'Now is your opponent\'s turn';
+        }
+
+        if (game.curr_player == 'spectator'){
+            message = 'New turn';
+        }
+
+        show_message(message);
+    });
+
+    socket.on('gameFinished', function(data) {
+      show_message("Game finished");
+    });
+
+    socket.on('opponentLeft', function(data) {
+      show_message("Opponent has left you all alone :(");
+    });
 };

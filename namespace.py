@@ -104,8 +104,8 @@ class GameNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         room = self.socket.session['room']
         player = self.socket.session['player']
 
-        room.game.turn(
-            player, (coords["x"], coords["y"]), (coords["x1"], coords["y1"]))
+        room.game.put_move(
+            player, ((coords["x"], coords["y"]), (coords["x1"], coords["y1"])))
         self.emit_to_room_not_me(
             room.name, 'gameStateChanged', room.game.get_data_turn())
 

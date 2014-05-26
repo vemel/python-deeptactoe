@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from easyAI import Human_Player, AI_Player, Negamax, DictTT
 
 
 class Player(object):
@@ -34,6 +35,9 @@ class Player(object):
             return None
         return self.turns[-1]
 
+    def undo_turn(self):
+        self.turns = self.turns[:-1]
+
     def is_left(self):
         return self.left
 
@@ -43,5 +47,36 @@ class Player(object):
     def rejoin(self):
         self.left = False
 
+    def is_bot(self):
+        return isinstance(self, AI_Player)
+
     def __bool__(self):
         return not self.is_left()
+
+
+class HumanPlayer(Human_Player, Player):
+    def __init__(self):
+        Human_Player.__init__(self)
+        Player.__init__(self)
+        self.moves = []
+
+    def ask_move(self, game):
+        if self.moves:
+            print 'move poped'
+            return self.moves.pop()
+
+    def put_move(self, move):
+        print 'move arrived'
+        self.moves.append(move)
+
+
+class AIPlayer(AI_Player, Player):
+    def __init__(self):
+        self.table = DictTT()
+        self.algo = Negamax(
+            4,
+            win_score=1000,
+            tt=self.table
+        )
+        AI_Player.__init__(self, self.algo)
+        Player.__init__(self)

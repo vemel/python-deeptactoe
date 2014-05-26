@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from game import Game
-from player import Player
+from player import HumanPlayer, AIPlayer
 
 
 class GameRoom(object):
@@ -14,6 +14,10 @@ class GameRoom(object):
         for team in self.teams:
             self.player_teams[team] = None
         self.name = name
+
+    def join_ai(self):
+        if self.name.startswith('ai'):
+            self.join(AIPlayer())
 
     def is_full(self):
         'True is all game players are here.'
@@ -38,7 +42,9 @@ class GameRoom(object):
 
         self.player_teams[player.get_team()] = player
         if self.game:
-            self.game.reset_players()
+            self.game.reset_players(self.players)
+
+        self.join_ai()
 
     def get_player_by_team(self, team):
         for player in self.players:
@@ -52,10 +58,6 @@ class GameRoom(object):
     def leave(self, player):
         player.leave()
 
-    def start_game(self):
-        'Players are here, let\'s rock'
-        self.game = Game(room=self)
-
     def get_left_player(self):
         'Get vacant player if any'
         for player in self.players:
@@ -65,7 +67,7 @@ class GameRoom(object):
     def get_game(self):
         'Players are here, let\'s rock'
         if not self.game:
-            self.game = Game(room=self)
+            self.game = Game(self.players)
         else:
             self.game.reset_players()
 
@@ -75,7 +77,7 @@ class GameRoom(object):
         'Get new player or vacant player if any'
         player = self.get_left_player()
         if player is None:
-            return Player()
+            return HumanPlayer()
 
         player.rejoin()
         return player

@@ -24,7 +24,7 @@ handler.setFormatter(logging.Formatter(
 ))
 
 app.logger.addHandler(handler)
-app.logger.error(sorted(app.jinja_env.globals.keys()))
+# app.logger.error(sorted(app.jinja_env.globals.keys()))
 
 
 import namespace
@@ -43,6 +43,16 @@ def view_hotseat():
 @app.route("/network")
 def view_network():
     return render_template('game_network.jade', room_name='main')
+
+
+@app.route("/ai")
+def view_ai():
+    return render_template('game_ai.jade', room_name='ai')
+
+
+@app.route("/ai/<room_name>")
+def view_ai_room(room_name):
+    return render_template('game_ai.jade', room_name=room_name)
 
 
 @app.route('/socket.io/<path:remaining>')
