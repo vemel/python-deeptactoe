@@ -3,3 +3,4 @@ argparse
 Flask
 Flask-Bootstrap
 gevent-socketio
+easyAI
